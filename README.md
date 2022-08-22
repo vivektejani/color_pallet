@@ -1,4 +1,4 @@
-# maths calculator
+#BMI calculator
 
 A new Flutter project.
 
