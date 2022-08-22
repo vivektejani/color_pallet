@@ -1,4 +1,4 @@
-#GST calculator
+#color pallet
 
 A new Flutter project.
 
