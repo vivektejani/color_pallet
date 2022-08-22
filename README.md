@@ -1,4 +1,4 @@
-#BMI calculator
+#GST calculator
 
 A new Flutter project.
 

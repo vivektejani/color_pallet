@@ -1,419 +1,384 @@
 import 'package:flutter/material.dart';
+
 void main() {
   runApp(
     const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BMI(),
+      home: GstCal(),
     ),
   );
 }
-class BMI extends StatefulWidget {
-  const BMI({Key? key}) : super(key: key);
+
+class GstCal extends StatefulWidget {
+  const GstCal({Key? key}) : super(key: key);
+
   @override
-  State<BMI> createState() => _BMIState();
+  State<GstCal> createState() => _GstState();
 }
-class _BMIState extends State<BMI> {
-  var backColor = const Color(0xff090e21);
-  var backColor2 = const Color(0xff1d1e33);
-  var chang = 0;
-  var chang2 = 0;
-  var Sliderval = 180;
-  var Weight = 60;
-  var Age = 28;
-  var changAge1 = 0;
-  var changAge2 = 0;
-  var changWeight1 = 0;
-  var changWeight2 = 0;
+
+class _GstState extends State<GstCal> {
+  var Con1 = 0;
+  var Con2 = 0;
+  var Con3 = 0;
+  var Con4 = 0;
+  var Con5 = 0;
+  var Val = 0;
+  var prs = 0;
+  var GST = 0;
+  var MyStyle = const TextStyle(fontSize: 30);
+  var input = 0;
+  var finalPrice = 0;
+  var a1 = [7, 4, 1, "00"];
+  var a2 = [8, 5, 2, 0];
+  var a3 = [9, 6, 3, "."];
+  var pr = ["3%", "5%", "12%", "18%", "28%"];
   var Decor = BoxDecoration(
-    color: const Color(0xff1d1e33),
-    borderRadius: BorderRadius.circular(10),
+    color: Colors.deepOrange,
+    borderRadius: BorderRadius.circular(30),
   );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: backColor,
-        centerTitle: true,
-        elevation: 0,
-        title: const Text(
-          "BMI Calculator",
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.white,
-          ),
-        ),
-      ),
       body: Container(
-        color: backColor,
         child: Column(
           children: [
             Expanded(
-              flex: 28,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              flex: 45,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        chang = 1;
-                        chang2 = 0;
-                      });
-                    },
-                    child: Ink(
-                      child: Container(
-                        height: 190,
-                        width: 160,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(
-                              Icons.female,
-                              size: 100,
-                              color: (chang == 1)
-                                  ? const Color(0xffeb1555)
-                                  : Colors.white,
-                            ),
-                            Text(
-                              "Female",
-                              style: TextStyle(
-                                fontSize: 23,
-                                color: (chang == 1)
-                                    ? const Color(0xffeb1555)
-                                    : Colors.white,
-                                fontWeight: (chang == 1)
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                              ),
-                            )
-                          ],
+                  Container(
+                    height: 35,
+                    width: 400,
+                    color: Colors.grey.shade300,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "ORIGINAL PRICE",
+                          style: TextStyle(fontSize: 19),
                         ),
-                        decoration: BoxDecoration(
-                          color: (chang == 1)
-                              ? const Color(0xff3b3c4d)
-                              : const Color(0xff1d1e33),
-                          borderRadius: BorderRadius.circular(10),
+                        const SizedBox(width: 25),
+                        Container(
+                          width: 200,
+                          alignment: Alignment.center,
+                          child: Text(
+                            "$input Rs.",
+                            style: const TextStyle(fontSize: 19),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        chang2 = 1;
-                        chang = 0;
-                      });
-                    },
-                    child: Ink(
-                      child: Container(
-                        height: 190,
-                        width: 160,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(
-                              Icons.male,
-                              size: 100,
-                              color: (chang2 == 1)
-                                  ? const Color(0xffeb1555)
-                                  : Colors.white,
-                            ),
+                  const SizedBox(height: 15),
+                  Container(
+                    height: 80,
+                    width: 400,
+                    color: Colors.grey.shade300,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            SizedBox(height: 40),
                             Text(
-                              "Male",
-                              style: TextStyle(
-                                fontSize: 23,
-                                color: (chang2 == 1)
-                                    ? const Color(0xffeb1555)
-                                    : Colors.white,
-                                fontWeight: (chang2 == 1)
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                              ),
-                            )
+                              "GST",
+                              style: TextStyle(fontSize: 21),
+                            ),
+                            SizedBox(height: 30),
                           ],
                         ),
-                        decoration: BoxDecoration(
-                          color: (chang2 == 1)
-                              ? const Color(0xff3b3c4d)
-                              : const Color(0xff1d1e33),
-                          borderRadius: BorderRadius.circular(10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: pr.map((a) {
+                            return InkWell(
+                              // splashColor: Colors.deepOrange,
+                              onTap: () {
+                                setState(() {
+                                  if (a == "3%") {
+                                    prs = 3;
+                                    finalPrice = (input * 3 ~/ 100) + input;
+                                    GST = (finalPrice - input) ~/ 2;
+                                    Con1 = 1;
+                                    Con2 = 0;
+                                    Con3 = 0;
+                                    Con4 = 0;
+                                    Con5 = 0;
+                                  } else if (a == "5%") {
+                                    finalPrice = (input * 5 ~/ 100) + input;
+                                    GST = (finalPrice - input) ~/ 2;
+                                    prs = 5;
+                                    Con2 = 1;
+                                    Con1 = 0;
+                                    Con3 = 0;
+                                    Con4 = 0;
+                                    Con5 = 0;
+                                  } else if (a == "12%") {
+                                    finalPrice = (input * 12 ~/ 100) + input;
+                                    GST = (finalPrice - input) ~/ 2;
+                                    prs = 12;
+                                    Con3 = 1;
+                                    Con1 = 0;
+                                    Con2 = 0;
+                                    Con4 = 0;
+                                    Con5 = 0;
+                                  } else if (a == "18%") {
+                                    finalPrice = (input * 18 ~/ 100) + input;
+                                    GST = (finalPrice - input) ~/ 2;
+                                    prs = 18;
+                                    Con4 = 1;
+                                    Con1 = 0;
+                                    Con2 = 0;
+                                    Con3 = 0;
+                                    Con4 = 0;
+                                  } else if (a == "28%") {
+                                    finalPrice = (input * 28 ~/ 100) + input;
+                                    GST = (finalPrice - input) ~/ 2;
+                                    prs = 28;
+                                    Con5 = 1;
+                                    Con1 = 0;
+                                    Con2 = 0;
+                                    Con3 = 0;
+                                    Con4 = 0;
+                                  }
+                                });
+                              },
+                              child: Ink(
+                                child: Container(
+                                  width: 75,
+                                  height: 35,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    a,
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  decoration: (a == "3%" && Con1 == 1)
+                                      ? Decor
+                                      : (a == "5%" && Con2 == 1)
+                                      ? Decor
+                                      : (a == "12%" && Con3 == 1)
+                                      ? Decor
+                                      : (a == "18%" && Con4 == 1)
+                                      ? Decor
+                                      : (a == "28%" && Con5 == 1)
+                                      ? Decor
+                                      : BoxDecoration(),
+                                ),
+                              ),
+                            );
+                          }).toList(),
                         ),
-                      ),
+                      ],
                     ),
                   ),
+                  const SizedBox(height: 15),
+                  Container(
+                    height: 35,
+                    width: 400,
+                    color: Colors.grey.shade300,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "FINAL PRICE",
+                          style: TextStyle(fontSize: 19),
+                        ),
+                        const SizedBox(width: 90),
+                        Text(
+                          "$finalPrice",
+                          style: const TextStyle(fontSize: 19),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    height: 80,
+                    width: 400,
+                    color: Colors.grey.shade300,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "CGST/SGST",
+                          style: TextStyle(
+                            fontSize: 21,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 9),
+                        Text(
+                          "$GST",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
                 ],
               ),
             ),
-            const SizedBox(height: 2.5),
             Expanded(
-              flex: 33,
-              child: Center(
-                child: Container(
-                  height: 190,
-                  width: 350,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const SizedBox(height: 20),
-                      const Text(
-                        "HEIGHT",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Color(0xff626473),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "$Sliderval",
-                            style: const TextStyle(
-                              fontSize: 50,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(width: 7),
-                          Container(
-                            height: 100,
-                            alignment: const Alignment(0, 0.2),
-                            child: const Text(
-                              "cm",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Color(0xff626473),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Slider(
-                        value: Sliderval.toDouble(),
-                        onChanged: (val) {
+              flex: 55,
+              child: Row(
+                children: [
+                  Column(
+                    children: a1.map((e) {
+                      return InkWell(
+                        onTap: () {
                           setState(() {
-                            Sliderval = val.toInt();
+                            if (e == 7) {
+                              input = (input * 10) + 7;
+                            } else if (e == 4) {
+                              input = (input * 10) + 4;
+                            } else if (e == 1) {
+                              input = (input * 10) + 1;
+                            } else if (e == "00") {
+                              input = input * 100;
+                            }
                           });
                         },
-                        thumbColor: const Color(0xffeb1555),
-                        activeColor: const Color(0xfff5c1d1),
-                        inactiveColor: const Color(0xff555555),
-                        max: 270,
-                        min: 90,
+                        child: Ink(
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 100,
+                            height: 105,
+                            color: Colors.white,
+                            child: Text(
+                              "$e",
+                              style: MyStyle,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  Column(
+                    children: a2.map((e) {
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            if (e == 8) {
+                              input = (input * 10) + 8;
+                            } else if (e == 5) {
+                              input = (input * 10) + 5;
+                            } else if (e == 2) {
+                              input = (input * 10) + 2;
+                            } else if (e == 0) {
+                              input = input * 10;
+                            }
+                          });
+                        },
+                        child: Ink(
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 100,
+                            height: 105,
+                            color: Colors.white,
+                            child: Text(
+                              "$e",
+                              style: MyStyle,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  Column(
+                    children: a3.map((e) {
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            if (e == 9) {
+                              input = (input * 10) + 9;
+                            } else if (e == 6) {
+                              input = (input * 10) + 6;
+                            } else if (e == 3) {
+                              input = (input * 10) + 3;
+                            }
+                          });
+                        },
+                        child: Ink(
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 100,
+                            height: 105,
+                            color: Colors.white,
+                            child: Text(
+                              "$e",
+                              style: MyStyle,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            finalPrice = 0;
+                            GST = 0;
+                            input = 0;
+                            prs = 0;
+                            Con1 = 0;
+                            Con2 = 0;
+                            Con3 = 0;
+                            Con4 = 0;
+                            Con5 = 0;
+                          });
+                        },
+                        child: Ink(
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: const Text(
+                              "AC",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                              ),
+                            ),
+                            height: 200,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              color: Colors.deepOrange,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            input = input ~/ 10;
+                          });
+                        },
+                        child: Ink(
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: const Text(
+                              "⌫",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                              ),
+                            ),
+                            height: 200,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              color: Colors.deepOrange,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                  decoration: Decor,
-                ),
-              ),
-            ),
-            const SizedBox(height: 2),
-            Expanded(
-              flex: 28,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: 180,
-                    width: 160,
-                    decoration: Decor,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Text(
-                          "Weight",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          "$Weight",
-                          style: const TextStyle(
-                            fontSize: 50,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  Weight--;
-                                  changWeight1 = 1;
-                                  changWeight2 = 0;
-                                });
-                              },
-                              child: Ink(
-                                child: Container(
-                                  height: 45,
-                                  width: 45,
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "-",
-                                    style: TextStyle(
-                                      fontSize: 40,
-                                      color: (changWeight1 == 1)
-                                          ? const Color(0xfff67fa4)
-                                          : Colors.white,
-                                    ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: (changWeight1 == 1)
-                                        ? const Color(0xff6e6f7a)
-                                        : const Color(0xff4c4f5e),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  Weight++;
-                                  changWeight2 = 1;
-                                  changWeight1 = 0;
-                                });
-                              },
-                              child: Ink(
-                                child: Container(
-                                  child: Icon(
-                                    Icons.add,
-                                    size: 30,
-                                    color: (changWeight2 == 1)
-                                        ? const Color(0xfff67fa4)
-                                        : Colors.white,
-                                  ),
-                                  height: 45,
-                                  width: 45,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: (changWeight2 == 1)
-                                        ? const Color(0xff6e6f7a)
-                                        : const Color(0xff4c4f5e),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 180,
-                    width: 160,
-                    decoration: Decor,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Text(
-                          "Age",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text(
-                          "$Age",
-                          style: const TextStyle(
-                            fontSize: 50,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  Age--;
-                                  changAge1 = 1;
-                                  changAge2 = 0;
-                                });
-                              },
-                              child: Ink(
-                                child: Container(
-                                  height: 45,
-                                  width: 45,
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "-",
-                                    style: TextStyle(
-                                      fontSize: 40,
-                                      color: (changAge1 == 1)
-                                          ? const Color(0xfff67fa4)
-                                          : Colors.white,
-                                    ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: (changAge1 == 1)
-                                        ? const Color(0xff6e6f7a)
-                                        : const Color(0xff4c4f5e),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  Age++;
-                                  changAge2 = 1;
-                                  changAge1 = 0;
-                                });
-                              },
-                              child: Ink(
-                                child: Container(
-                                  child: Icon(
-                                    Icons.add,
-                                    size: 30,
-                                    color: (changAge2 == 1)
-                                        ? const Color(0xfff67fa4)
-                                        : Colors.white,
-                                  ),
-                                  height: 45,
-                                  width: 45,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: (changAge2 == 1)
-                                        ? const Color(0xff6e6f7a)
-                                        : const Color(0xff4c4f5e),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
-              ),
-            ),
-            const SizedBox(height: 40),
-            Expanded(
-              flex: 12,
-              child: InkWell(
-                onTap: () {},
-                child: Ink(
-                  child: Container(
-                    height: 75,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: const Text(
-                      "Calculate",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 45,
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xffeb1555),
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                ),
               ),
             ),
           ],
@@ -422,4 +387,3 @@ class _BMIState extends State<BMI> {
     );
   }
 }
-
